@@ -10,7 +10,7 @@ from utils import (
 
 st.set_page_config(
     page_title="Riemann magic",
-    page_icon="",
+    page_icon="➕",
     layout="centered",  # wide
     initial_sidebar_state="auto",  # collapsed
     menu_items={
