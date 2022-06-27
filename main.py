@@ -15,7 +15,7 @@ st.set_page_config(
     initial_sidebar_state="auto",  # collapsed
     menu_items={
         "About": "# Riemann rearrangement *SoME 2022*",
-        'help': 'https://github.com/Clement-Lelievre/riemann_rearrangement_SoME2022'
+        "Get help": 'https://github.com/Clement-Lelievre/riemann_rearrangement_SoME2022'
     },
 )
 
