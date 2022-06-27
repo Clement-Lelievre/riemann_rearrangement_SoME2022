@@ -76,7 +76,7 @@ def feed_plotly_fig(new_sum: float, /, nb_cycles: int = 80) -> tuple:
     cycle_size = []
     for _ in range(nb_cycles):
         while s < new_sum:
-            #s = np.cumsum(pos[:index_pos])
+            # s = np.cumsum(pos[:index_pos])
             s += pos[index_pos]
             index_pos += 1
             series_values.append(s)
@@ -85,7 +85,7 @@ def feed_plotly_fig(new_sum: float, /, nb_cycles: int = 80) -> tuple:
         index_neg += 1
         series_values.append(s)
     cycle_size = [cycle_size[i + 1] - cycle_size[i] for i in range(len(cycle_size) - 1)]
-    cycle_size = int(sum(cycle_size)/len(cycle_size))
+    cycle_size = int(sum(cycle_size) / len(cycle_size))
     return series_values, new_sum, cycle_size
 
 
@@ -101,6 +101,7 @@ def make_plotly_fig(*args):
         yaxis_title="Sum",
     )
     return fig
+
 
 if __name__ == "__main__":
     # get_alternating_series_graph()

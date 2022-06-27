@@ -111,19 +111,31 @@ with st.expander("What's the trick?"):
     st.markdown(
         "#### Don't hesitate to zoom in on the above graph with your mouse, to picture that effect better"
     )
-    
+
 with st.expander("💡 Notice any pattern?"):
-    st.markdown('#### The number of terms required to offset the previously added negative term converges! This is what I called a "cycle" above in the graph xaxis label')   
-    st.markdown(f'#### e.g. currently, tweaking the series to make it converge towards {new_sum} implies a rearrangement such that after a few iterations, it takes {cycle_size} positive terms to offset one negative term')
-    
-st.markdown('#### Thanks for reading this far!')
-with st.expander("On a lighter note, do you now feel powerful enough to accomplish prowesses like this?"):
-    st.image('1280px-Feeding_the_multitude,_Daniel_of_Uranc,_1433.jpg',
-             caption='The feeding of the multitude, by Daniel of Uranc, c. 1433')
-    st.write('''DISCLAIMER: The purpose of the above image isn’t to challenge your personal faith or promote/discard any religion. 
-             I have no stake in your attitude about God or atheism.''')
+    st.markdown(
+        '#### The number of terms required to offset the previously added negative term converges! This is what I called a "cycle" above in the graph xaxis label'
+    )
+    st.markdown(
+        f"#### e.g. currently, tweaking the series to make it converge towards {new_sum} implies a rearrangement such that after a few iterations, it takes {cycle_size} positive terms to offset one negative term"
+    )
+
+st.markdown("#### Thanks for reading this far!")
+with st.expander(
+    "On a lighter note, do you now feel powerful enough to accomplish prowesses like this?"
+):
+    st.image(
+        "1280px-Feeding_the_multitude,_Daniel_of_Uranc,_1433.jpg",
+        caption="The feeding of the multitude, by Daniel of Uranc, c. 1433",
+    )
+    st.write(
+        """DISCLAIMER: The purpose of the above image isn’t to challenge your personal faith or promote/discard any religion. 
+             I have no stake in your attitude about God or atheism."""
+    )
 
 
-st.markdown('#### Does it inspire you? Do you foresee any applications of this theorem?')
+st.markdown(
+    "#### Does it inspire you? Do you foresee any applications of this theorem?"
+)
 with st.expander("Yes, let me send you an email 📧!"):
     st.write("clement.lelievre91@gmail.com")
