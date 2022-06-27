@@ -10,11 +10,12 @@ from utils import (
 
 st.set_page_config(
     page_title="Riemann magic",
-    page_icon="🧙🏻",
+    page_icon=":heavy_plus_sign:",
     layout="centered",  # wide
     initial_sidebar_state="auto",  # collapsed
     menu_items={
         "About": "# Riemann rearrangement *SoME 2022*",
+        'help': 'https://github.com/Clement-Lelievre/riemann_rearrangement_SoME2022'
     },
 )
 
