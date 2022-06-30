@@ -96,7 +96,7 @@ def make_plotly_fig(*args):
     fig.add_trace(go.Scatter(x=x, y=series_values, name="The series rearranged"))
     fig.add_trace(
         go.Scatter(
-            x=np.arange(len(x)), y=np.tile(new_sum, len(x)), name=f"y = {new_sum}"
+            x=np.arange(len(x)), y=np.tile(new_sum, len(x)), name=f"y = {new_sum}", line=dict(color='red')
         )
     )
     fig.update_layout(
