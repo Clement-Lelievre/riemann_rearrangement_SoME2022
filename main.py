@@ -15,7 +15,7 @@ st.set_page_config(
     initial_sidebar_state="auto",  # collapsed
     menu_items={
         "About": "# Riemann rearrangement *SoME 2022*",
-        "Get help": 'https://github.com/Clement-Lelievre/riemann_rearrangement_SoME2022'
+        "Get help": "https://github.com/Clement-Lelievre/riemann_rearrangement_SoME2022",
     },
 )
 
@@ -88,17 +88,25 @@ st.markdown(
 st.markdown(
     "### Currently the sum converges towards ln(2) ~ 0.69. Pick a new sum of your choice in the slider 👇"
 )
-new_sum = st.slider(
-    "New series limit",
-    0.25,
-    3.5,
+
+if "new_sum" not in st.session_state:
+    st.session_state.new_sum = 2.0
+
+new_sum = st.number_input(
+    "New limit",
+    0.0,
     3.0,
-    0.15,
+    2.0,
+    step=0.5,
     help="Pick the real number the sum will converge to after rearranging its terms",
+    format="%f",
 )
+
 series_values, new_sum, cycle_size, *_ = feed_plotly_fig(new_sum)
 st.plotly_chart(make_plotly_fig(series_values, new_sum, cycle_size))
-
+st.markdown(
+    "You can zoom in ☝️ on an area 📈 with the 🖱️. Double-click to zoom back out."
+)
 with st.expander("What's the trick?"):
     st.markdown(
         "#### Whatever the number you choose (assume it is positive for the sake of the example), you can always add upp positive terms of the series (1, 1/3, 1/5, 1/7 and so on) until the sum becomes bigger than this number."

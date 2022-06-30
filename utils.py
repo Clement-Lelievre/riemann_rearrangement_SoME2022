@@ -92,11 +92,15 @@ def feed_plotly_fig(new_sum: float, /, nb_cycles: int = 80) -> tuple:
 def make_plotly_fig(*args):
     series_values, new_sum, cycle_size, *_ = args
     fig = go.Figure()
+    x = [ind for ind in range(len(series_values))]
+    fig.add_trace(go.Scatter(x=x, y=series_values, name="The series rearranged"))
     fig.add_trace(
-        go.Scatter(x=[indice for indice in range(len(series_values))], y=series_values)
+        go.Scatter(
+            x=np.arange(len(x)), y=np.tile(new_sum, len(x)), name=f"y = {new_sum}"
+        )
     )
     fig.update_layout(
-        title=f"Alternating harmonic series rearranged (sum -> {new_sum}) (you can zoom in on an area with the 🖱️)",
+        title=f"Alternating harmonic series rearranged (sum -> {new_sum})",
         xaxis_title=f"Number of terms added up (cycle size: {cycle_size})",
         yaxis_title="Sum",
     )
