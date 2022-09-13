@@ -6,6 +6,7 @@ from utils import (
     reset_count,
     get_alternating_series_graph,
     make_plotly_fig,
+    make_animation,
 )
 
 st.set_page_config(
@@ -19,13 +20,15 @@ st.set_page_config(
     },
 )
 
+st.title("♾️ A walk down Rearrangement Street ♾️")
+
 st.markdown(
     """\n
 
     #### 1 + 2 = 2 + 1, right ? Formally, the addition of real numbers is commutative
     #### What if it's not *always* true?
     #### What if you could alter the sum by changing the order of the numbers you're adding up?
-    #### This counter-intuitive fact works for conditionally convergent real number series and was discovered by Bernhard Riemann in his [rearrangement theorem](https://en.wikipedia.org/wiki/Riemann_series_theorem)
+    #### This counter-intuitive fact works for certains series called "*conditionally convergent*" real number series and was discovered by Bernhard Riemann in his [rearrangement theorem](https://en.wikipedia.org/wiki/Riemann_series_theorem)
 """
 )
 
@@ -37,7 +40,7 @@ with st.expander("What is a conditionally convergent real number series?"):
     )
 
 
-st.markdown(""" # A classic illustration: the alternating harmonic series""")
+st.markdown(""" ## A classic illustration: the alternating harmonic series""")
 
 st.latex(
     r"""
@@ -85,15 +88,13 @@ st.markdown(
 )
 
 
-st.markdown(
-    "### Currently the sum converges towards ln(2) ~ 0.69. Pick a new sum of your choice in the slider 👇"
-)
+st.markdown("### Currently the sum converges towards ln(2) ~ 0.69. Let us change that!")
 
 if "new_sum" not in st.session_state:
     st.session_state.new_sum = 2.0
 
 new_sum = st.number_input(
-    "New limit",
+    "Pick a new limit of your choice (incl. a very specific number) 👇",
     0.0,
     3.0,
     2.0,
@@ -101,12 +102,24 @@ new_sum = st.number_input(
     help="Pick the real number the sum will converge to after rearranging its terms",
     format="%f",
 )
-
 series_values, new_sum, cycle_size, *_ = feed_plotly_fig(new_sum)
-st.plotly_chart(make_plotly_fig(series_values, new_sum, cycle_size))
-st.markdown(
-    "You can zoom in ☝️ on an area 📈 with the 🖱️. Double-click to zoom back out."
-)
+
+tab1, tab2 = st.tabs(["Change the sum!", "The series in motion!"])
+
+with tab1:
+
+    st.plotly_chart(make_plotly_fig(series_values, new_sum, cycle_size))
+    st.markdown(
+        "You can zoom in ☝️ on an area 📈 with the 🖱️. Double-click to zoom back out."
+    )
+    st.markdown(
+        "### Once you're done, you can view the series being built dynamically on the next tab ☝️"
+    )
+with tab2:
+    with st.spinner("Preparing the animation..."):
+        st.plotly_chart(make_animation(series_values, new_sum))
+
+
 with st.expander("What's the trick?"):
     st.markdown(
         "#### Whatever the number you choose (assume it is positive for the sake of the example), you can always add upp positive terms of the series (1, 1/3, 1/5, 1/7 and so on) until the sum becomes bigger than this number."
@@ -128,6 +141,7 @@ with st.expander("💡 Notice any pattern?"):
     st.markdown(
         f"#### e.g. currently, tweaking the series to make it converge towards {new_sum} implies a rearrangement such that after a few iterations, it takes {cycle_size} positive terms to offset one negative term"
     )
+
 
 st.markdown("#### Thanks for reading this far!")
 with st.expander(

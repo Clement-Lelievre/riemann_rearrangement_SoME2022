@@ -1,6 +1,6 @@
-import streamlit as st
 from functools import lru_cache
 from math import log
+import streamlit as st
 import matplotlib.pyplot as plt
 import plotly.graph_objects as go
 import numpy as np
@@ -92,11 +92,14 @@ def feed_plotly_fig(new_sum: float, /, nb_cycles: int = 80) -> tuple:
 def make_plotly_fig(*args):
     series_values, new_sum, cycle_size, *_ = args
     fig = go.Figure()
-    x = [ind for ind in range(len(series_values))]
+    x = list(range(len(series_values)))
     fig.add_trace(go.Scatter(x=x, y=series_values, name="The series rearranged"))
     fig.add_trace(
         go.Scatter(
-            x=np.arange(len(x)), y=np.tile(new_sum, len(x)), name=f"y = {new_sum}", line=dict(color='red')
+            x=np.arange(len(x)),
+            y=np.tile(new_sum, len(x)),
+            name=f"y = {new_sum}",
+            line=dict(color="red"),
         )
     )
     fig.update_layout(
@@ -107,8 +110,54 @@ def make_plotly_fig(*args):
     return fig
 
 
-if __name__ == "__main__":
-    # get_alternating_series_graph()
-    a = np.ones(shape=3)
-    print(a)
-    print(np.cumsum(a))
+@st.experimental_memo
+def make_animation(series_values, new_sum):
+    """Prepares the data for the Plotly animation that shows the rearranged series in motion
+
+    Args:
+        series_values (list): the values taken by the series, in order
+        new_sum (float): the limit of the rearranged series
+
+    Returns:
+        fig: the Plotly figure object
+    """
+    series_values = series_values[:100]
+    x = list(range(len(series_values)))
+    fig = go.Figure(
+        data=[
+            go.Scatter(
+                x=np.arange(len(x)),
+                y=np.tile(new_sum, len(x)),
+                name=f"y = {new_sum}",
+                line=dict(color="red"),
+            )
+        ],
+        layout=go.Layout(
+            # xaxis=dict(range=[0, 5], autorange=False),
+            # yaxis=dict(range=[0, 5], autorange=False),
+            # title="Start Title",
+            updatemenus=[
+                dict(
+                    type="buttons",
+                    buttons=[dict(label="Build it!", method="animate", args=[None])],
+                )
+            ]
+        ),
+        frames=[
+            go.Frame(
+                data=[go.Scatter(x=x[:i], y=series_values[:i])],
+                layout=go.Layout(
+                    title_text=f"The series in motion (limit = {new_sum})"
+                ),
+            )
+            for i in range(len(series_values))
+        ],
+    )
+    return fig
+
+
+# if __name__ == "__main__":
+#     # get_alternating_series_graph()
+#     a = np.ones(shape=3)
+#     print(a)
+#     print(np.cumsum(a))
