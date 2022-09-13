@@ -135,17 +135,24 @@ def make_animation(series_values, new_sum):
         layout=go.Layout(
             # xaxis=dict(range=[0, 5], autorange=False),
             # yaxis=dict(range=[0, 5], autorange=False),
-            # title="Start Title",
+            title=f"The series in motion (limit = {new_sum})",
             updatemenus=[
                 dict(
                     type="buttons",
-                    buttons=[dict(label="Build it!", method="animate", args=[None])],
+                    buttons=[dict(label="&#9654;", method="animate", args=[None])],
                 )
-            ]
+            ],
         ),
         frames=[
             go.Frame(
-                data=[go.Scatter(x=x[:i], y=series_values[:i])],
+                data=[
+                    go.Scatter(
+                        x=x[:i],
+                        y=series_values[:i],
+                        name=f"rearranged series (sum -> {new_sum})",
+                        line=dict(color="blue"),
+                    )
+                ],
                 layout=go.Layout(
                     title_text=f"The series in motion (limit = {new_sum})"
                 ),
