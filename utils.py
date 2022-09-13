@@ -133,8 +133,8 @@ def make_animation(series_values, new_sum):
             )
         ],
         layout=go.Layout(
-            # xaxis=dict(range=[0, 5], autorange=False),
-            # yaxis=dict(range=[0, 5], autorange=False),
+            xaxis_title=f"Number of terms added up",
+            yaxis_title="Sum",
             title=f"The series in motion (limit = {new_sum})",
             updatemenus=[
                 dict(
