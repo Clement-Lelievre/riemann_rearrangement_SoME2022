@@ -28,7 +28,7 @@ st.markdown(
     #### 1 + 2 = 2 + 1, right ? Formally, the addition of real numbers is commutative
     #### What if it's not *always* true?
     #### What if you could alter the sum by changing the order of the numbers you're adding up?
-    #### This counter-intuitive fact works for certains series called "*conditionally convergent*" real number series and was discovered by Bernhard Riemann in his [rearrangement theorem](https://en.wikipedia.org/wiki/Riemann_series_theorem)
+    #### This counter-intuitive fact works for certain series called "*conditionally convergent*" real number series and was discovered by Bernhard Riemann in his [rearrangement theorem](https://en.wikipedia.org/wiki/Riemann_series_theorem)
 """
 )
 
