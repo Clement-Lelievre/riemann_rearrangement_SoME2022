@@ -25,7 +25,7 @@ def _get_alternating_series_graph_image(n: int = 100):
     plt.plot(x, y, label="Our strange addition")
     plt.plot(x, [log(2)] * n, c="r", label="ln(2)")
     plt.title("""Alternating harmonic series""", fontdict={
-                "family": "serif",
+                #"family": "serif",
                 "color": "blue",
                 "weight": "bold",
                 "size": 12,
@@ -43,7 +43,12 @@ def get_alternating_series_graph(n: int = 100):
     fig_ = plt.figure()
     plt.plot(x, y, label=f"Our strange addition ({n} terms)")
     plt.plot(x, [log(2)] * (n + 1), c="r", label="y = ln(2)")
-    plt.title("""Alternating harmonic series""")
+    plt.title("""Alternating harmonic series""", fontdict={
+                #"family": "serif",
+                "color": "blue",
+                "weight": "bold",
+                "size": 12,
+            })
     plt.xlabel("Number of terms added up")
     plt.xticks(range(n + 1))
     plt.ylabel("Sum")
