@@ -149,7 +149,8 @@ def make_animation(series_values, new_sum):
             updatemenus=[
                 dict(
                     type="buttons",
-                    buttons=[dict(label="&#9654;", method="animate", args=[None])],
+                    buttons=[dict(label="&#931;", method="animate", args=[None])],
+                    font={'color':'red'},
                 )
             ],
         ),
