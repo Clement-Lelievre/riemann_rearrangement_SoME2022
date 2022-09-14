@@ -24,12 +24,15 @@ def _get_alternating_series_graph_image(n: int = 100):
     plt.figure()
     plt.plot(x, y, label="Our strange addition")
     plt.plot(x, [log(2)] * n, c="r", label="ln(2)")
-    plt.title("""Alternating harmonic series""", fontdict={
-                #"family": "serif",
-                "color": "blue",
-                "weight": "bold",
-                "size": 12,
-            })
+    plt.title(
+        """Alternating harmonic series""",
+        fontdict={
+            # "family": "serif",
+            "color": "blue",
+            "weight": "bold",
+            "size": 12,
+        },
+    )
     plt.xlabel("Number of terms added up")
     plt.ylabel("Sum")
     plt.legend()
@@ -43,12 +46,15 @@ def get_alternating_series_graph(n: int = 100):
     fig_ = plt.figure()
     plt.plot(x, y, label=f"Our strange addition ({n} terms)")
     plt.plot(x, [log(2)] * (n + 1), c="r", label="y = ln(2)")
-    plt.title("""Alternating harmonic series""", fontdict={
-                #"family": "serif",
-                "color": "blue",
-                "weight": "bold",
-                "size": 12,
-            })
+    plt.title(
+        """Alternating harmonic series""",
+        fontdict={
+            # "family": "serif",
+            "color": "blue",
+            "weight": "bold",
+            "size": 12,
+        },
+    )
     plt.xlabel("Number of terms added up")
     plt.xticks(range(n + 1))
     plt.ylabel("Sum")
@@ -150,28 +156,47 @@ def make_animation(series_values, new_sum):
                 dict(
                     type="buttons",
                     buttons=[dict(label="&#931;", method="animate", args=[None])],
-                    font={'color':'red'},
+                    font={"color": "red"},
                 )
             ],
         ),
         frames=[
-            go.Frame(
-                data=[
-                    go.Scatter(
-                        x=x[:i],
-                        y=series_values[:i],
-                        name=f"rearranged series (sum -> {new_sum})",
-                        line=dict(color="blue"),
-                    )
-                ],
-                layout=go.Layout(
-                    title_text=f"The series in motion (limit = {new_sum})"
-                ),
-            )
-            for i in range(len(series_values))
+            make_frame(series_values, new_sum, i) for i in range(len(series_values))
         ],
     )
     return fig
+
+
+@st.experimental_memo
+def make_frame(series_values: list[float], new_sum: float, i: int):
+    """Prepares the data for the Plotly animation that shows the rearranged series in motion
+
+    Args:
+        series_values (list): the values taken by the series, in order
+        new_sum (float): the limit of the rearranged series
+        i (int): the index of the frame"""
+    x = list(range(len(series_values)))
+    fig = go.Figure()
+    fig.add_trace(
+        go.Scatter(
+            x=x[:i],
+            y=series_values[:i],
+            name=f"rearranged series (sum -> {new_sum})",
+            line=dict(color="blue"),
+        )
+    )
+    fig.add_trace(
+        go.Scatter(
+            x=x[:i],
+            y=np.tile(new_sum, i),
+            name=f"y = {new_sum}",
+            line=dict(color="red"),
+        )
+    )
+    return go.Frame(
+        data=fig.data,
+        layout=go.Layout(title_text=f"The series in motion (limit = {new_sum})"),
+    )
 
 
 if __name__ == "__main__":
