@@ -24,7 +24,12 @@ def _get_alternating_series_graph_image(n: int = 100):
     plt.figure()
     plt.plot(x, y, label="Our strange addition")
     plt.plot(x, [log(2)] * n, c="r", label="ln(2)")
-    plt.title("""Alternating harmonic series""")
+    plt.title("""Alternating harmonic series""", fontdict={
+                "family": "serif",
+                "color": "blue",
+                "weight": "bold",
+                "size": 12,
+            })
     plt.xlabel("Number of terms added up")
     plt.ylabel("Sum")
     plt.legend()
@@ -163,8 +168,9 @@ def make_animation(series_values, new_sum):
     return fig
 
 
-# if __name__ == "__main__":
-#     # get_alternating_series_graph()
-#     a = np.ones(shape=3)
-#     print(a)
-#     print(np.cumsum(a))
+if __name__ == "__main__":
+    # get_alternating_series_graph()
+    # a = np.ones(shape=3)
+    # print(a)
+    # print(np.cumsum(a))
+    _get_alternating_series_graph_image()
