@@ -50,7 +50,7 @@ st.latex(
 
 st.markdown(
     """#### In layman's terms, if you take 1, subtract its half, add its third, subtract its fourth, etc., for a \
-            *very long time*, you'll get to approximately 0.69 (ln(2), exactly). Basically, the marginal effect of adding up the last term \
+            *very long time*, you'll get to approximately 0.69 (and arbitrarily close to ln(2), exactly). Basically, the marginal effect of adding up the last term \
                 becomes negligible so you end up with an actual number instead of infinity"""
 )
 
