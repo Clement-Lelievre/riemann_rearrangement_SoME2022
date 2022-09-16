@@ -39,6 +39,8 @@ def _get_alternating_series_graph_image(n: int = 100):
     plt.savefig("alternating_series.png")
 
 
+@st.experimental_memo
+@lru_cache
 def get_alternating_series_graph(n: int = 100):
     """Used for the user to construct the graph step by step in the app"""
     x = [_ for _ in range(n + 1)]  # the indices
@@ -105,6 +107,8 @@ def feed_plotly_fig(new_sum: float, /, nb_cycles: int = 80) -> tuple:
     return series_values, new_sum, cycle_size
 
 
+# @st.experimental_memo
+# @lru_cache
 def make_plotly_fig(*args):
     series_values, new_sum, cycle_size, *_ = args
     fig = go.Figure()
@@ -126,7 +130,8 @@ def make_plotly_fig(*args):
     return fig
 
 
-@st.experimental_memo
+# @st.experimental_memo
+# @lru_cache
 def make_animation(series_values, new_sum):
     """Prepares the data for the Plotly animation that shows the rearranged series in motion
 
@@ -167,7 +172,8 @@ def make_animation(series_values, new_sum):
     return fig
 
 
-@st.experimental_memo
+# @st.experimental_memo
+# @lru_cache
 def make_frame(series_values: list[float], new_sum: float, i: int):
     """Prepares the data for the Plotly animation that shows the rearranged series in motion
 
@@ -176,27 +182,19 @@ def make_frame(series_values: list[float], new_sum: float, i: int):
         new_sum (float): the limit of the rearranged series
         i (int): the index of the frame"""
     x = list(range(len(series_values)))
-    fig = go.Figure()
-    fig.add_trace(
-        go.Scatter(
-            x=x[:i],
-            y=series_values[:i],
-            name=f"rearranged series (sum -> {new_sum})",
-            line=dict(color="blue"),
-        )
+    straight_line = go.Scatter(
+        x=x[:i],
+        y=np.tile(new_sum, i),
+        # name=f"y = {new_sum}",
+        # line=dict(color="red"),
     )
-    fig.add_trace(
-        go.Scatter(
-            x=x[:i],
-            y=np.tile(new_sum, i),
-            name=f"y = {new_sum}",
-            line=dict(color="red"),
-        )
+    partial_rearranged_series = go.Scatter(
+        x=x[:i],
+        y=series_values[:i],
+        # name=f"rearranged series (sum -> {new_sum})",
+        line=dict(color="blue"),
     )
-    return go.Frame(
-        data=fig.data,
-        layout=go.Layout(title_text=f"The series in motion (limit = {new_sum})"),
-    )
+    return go.Frame(data=[partial_rearranged_series, straight_line])
 
 
 if __name__ == "__main__":
@@ -204,4 +202,5 @@ if __name__ == "__main__":
     # a = np.ones(shape=3)
     # print(a)
     # print(np.cumsum(a))
-    _get_alternating_series_graph_image()
+    # _get_alternating_series_graph_image()
+    pass
